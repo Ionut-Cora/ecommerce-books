@@ -1,0 +1,206 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+
+
+/* NAV */
+
+nav {
+    display: flex;
+    background-color: #fff;
+}
+
+.navigation-divs {
+    display: flex;
+    margin: auto;
+    background-color: #fff;
+}
+
+#logo {
+    display: flex;
+    justify-content: flex-start;
+    width: 25%;
+    height: 50px;
+    margin: auto;
+    align-items: center;
+}
+
+nav ul {
+    width: 75%;
+    margin: auto;
+    height: 50px;
+    align-items: center;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+#toggle-div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+}
+
+li {
+    text-align: center;
+}
+
+.seen {
+    display: block;
+}
+
+.unseen {
+    display: none;
+}
+
+.logo-toggle {
+    position: absolute;
+    top: 11px;
+    left: 0;
+}
+
+/* SECTION - HEADER */
+
+#header {
+    display: none;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(https://i.imgur.com/t0tEnNg.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://i.imgur.com/t0tEnNg.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+/* SECTION PRODUCTS-PAGE */
+
+/* #products-page {
+    display: flex;
+} */
+
+/* FILTERS */
+
+/* #filters {
+    width: 20%;
+} */
+
+/* SECTION - PRODUCTS */
+
+.favorite-div {
+    display: flex;
+    justify-content: flex-end;
+    width: 40%;
+    padding: 5%;
+}
+
+#products,
+#div-name-atoz,
+#div-name-ztoa,
+#div-author-atoz,
+#div-author-ztoa,
+#div-tolstoy,
+#div-dostoevsky,
+#div-cervantes,
+#div-fitzgerald,
+#div-wilde {
+    display: flex;
+    flex-wrap: wrap;
+    /* width: 80%; */
+}
+
+#products img,
+.name-atoz img,
+.name-ztoa img,
+.author-atoz img,
+.author-ztoa img,
+#div-tolstoy img,
+#div-dostoevsky img,
+#div-cervantes img,
+#div-fitzgerald img,
+#div-wilde img {
+    /* display: none; */
+    width: 50%;
+    border-radius: 5px;
+}
+
+.product,
+.atoz,
+.ztoa,
+.atoz-author,
+.ztoa-author,
+.tolstoy,
+.dostoevsky,
+.cervantes,
+.fitzgerald,
+.wilde {
+    width: 40%;
+    padding: 5%;
+    text-align: center;
+}
+
+.author {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title {
+    padding: 5%;
+}
+
+.description {
+    padding: 5%;
+}
+
+.favorites-section {
+    display: none;
+}
+
+.basket-section {
+    display: none;
+}
+
+ion-icon:hover {
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 600px) {
+    /* #navigation {
+        display: flex;
+        width: 100%;
+    }
+
+    #logo {
+        width: 25%;
+    }
+
+    #toggle-div {
+        width: 75%;
+    }
+
+    nav ul {
+        display: none;
+    }
+
+    #menu-toggle {
+        display: block;
+    } */
+}
