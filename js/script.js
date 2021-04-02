@@ -147,11 +147,24 @@ window.addEventListener('load', () => {
 
         <section class="container favorites-section">
             <h2>Favorites</h2>
+            <p id="empty-favorites">You do not have any favorites books!</p>
+            <div id="favorites-products"></div>
         </section>
 
         <section class="container basket-section">
             <h2>Basket</h2>
-            <p id="total">0</p>
+            <p id="empty-basket">Your basket is empty!</p>
+            <div class="basket-products"></div>
+            <div id="basket-total">
+                <p>Total: </p>
+                <p>£</p>
+                <p id="total">0</p>          
+            </div>
+            <button id="pay-button">Pay Now</button>
+            <div id="order">
+                <p>Your order is confirmed</p>
+                <button id="order-button">ok</button>
+            </div>
         </section>
     `;
 
@@ -202,6 +215,7 @@ window.addEventListener('load', () => {
     const filters = document.getElementById('filters');
     let favoritesSection = document.querySelector('.favorites-section');
     let basketsSection = document.querySelector('.basket-section');
+    let basketProducts = document.querySelector('.basket-products'); 
 
 
     home.addEventListener('click', () => {
@@ -230,6 +244,9 @@ window.addEventListener('load', () => {
         authorZtoA.style.display = 'none';
     });
 
+    const emptyFavorites = document.getElementById('empty-favorites');
+    const favoritesBooks = document.getElementById('favorites-products');
+
     let favorites = document.querySelectorAll('.favorites');
 
         for (let i = 0; i < favorites.length; i++) {
@@ -238,14 +255,14 @@ window.addEventListener('load', () => {
             favorite.addEventListener('click', (event) => {
                 event.preventDefault();
     
-                
+                emptyFavorites.style.display = 'none';
     
-                if (favoritesSection.innerHTML.indexOf(books[i].title) != -1) {
+                if (favoritesBooks.innerHTML.indexOf(books[i].title) != -1) {
                     console.log('este');
                 } else {
                     console.log('adaugat');
     
-                    favoritesSection.innerHTML += `
+                    favoritesBooks.innerHTML += `
                         <div>
                             <ion-icon name="close-outline" id="delete"></ion-icon>
                             <h3>` + books[i].title + `<h3>
@@ -271,6 +288,33 @@ window.addEventListener('load', () => {
         }
 
     let addsBasket = document.querySelectorAll('.adds-basket');
+    const basketTotal = document.getElementById('basket-total');
+    const emptyBasket = document.getElementById('empty-basket');
+    const payButton = document.getElementById('pay-button');
+    const order = document.getElementById('order');
+    const orderButton = document.getElementById('order-button');
+
+    function payment() {
+
+        payButton.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            basketTotal.style.display = 'none';
+            payButton.style.display = 'none';
+            basketProducts.style.display = 'none';
+            order.style.display = 'block';
+
+            orderButton.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                order.style.display = 'none';
+                emptyBasket.style.display = 'block';
+
+            });
+
+        });
+
+    }
 
     for (let i = 0; i < addsBasket.length; i++) {
         let addBasket = addsBasket[i];
@@ -278,14 +322,16 @@ window.addEventListener('load', () => {
         addBasket.addEventListener('click', (event) => {
             event.preventDefault();
             
+            basketTotal.style.display = 'block';
+            payButton.style.display = 'block';
+            emptyBasket.style.display = 'none';
 
-
-            if (basketsSection.innerHTML.indexOf(books[i].title) != -1) {
+            if (basketProducts.innerHTML.indexOf(books[i].title) != -1) {
                 console.log('este in basket');
             } else {
                 console.log('adaugat in basket');
 
-                basketsSection.innerHTML += `
+                basketProducts.innerHTML += `
                     <div>
                         <ion-icon name="close-outline" id="delete"></ion-icon>
                         <h3>` + books[i].title + `</h3>
@@ -380,6 +426,7 @@ window.addEventListener('load', () => {
                 
             }
 
+            payment();
             
         });
     }
@@ -461,14 +508,14 @@ window.addEventListener('load', () => {
                                 favoriteAtoZ.addEventListener('click', (event) => {
                                     event.preventDefault();
                         
-                                    
+                                    emptyFavorites.style.display = 'none';
                         
-                                    if (favoritesSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (favoritesBooks.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este din titleAtoZ');
                                     } else {
                                         console.log('adaugat din titleAtoZ');
                         
-                                        favoritesSection.innerHTML += `
+                                        favoritesBooks.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `<h3>
@@ -502,13 +549,16 @@ window.addEventListener('load', () => {
                                 basketAtozs.addEventListener('click', (event) => {
                                     event.preventDefault();
     
+                                    basketTotal.style.display = 'block';
+                                    payButton.style.display = 'block';
+                                    emptyBasket.style.display = 'none';
                                         
-                                    if (basketsSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (basketProducts.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este in basket');
                                     } else {
                                         console.log('adaugat in basket');
     
-                                        basketsSection.innerHTML += `
+                                        basketProducts.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `</h3>
@@ -602,6 +652,8 @@ window.addEventListener('load', () => {
     
                                             
                                     }
+
+                                    payment();
                                                                                
                                 });
                             }
@@ -671,13 +723,15 @@ window.addEventListener('load', () => {
                         
                                 favoriteZtoA.addEventListener('click', (event) => {
                                     event.preventDefault();
+
+                                    emptyFavorites.style.display = 'none';
                                               
-                                    if (favoritesSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (favoritesBooks.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este din titleZtoA');
                                     } else {
                                         console.log('adaugat din titleZtoA');
                         
-                                        favoritesSection.innerHTML += `
+                                        favoritesBooks.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `<h3>
@@ -710,13 +764,16 @@ window.addEventListener('load', () => {
                                 basketZtoas.addEventListener('click', (event) => {
                                     event.preventDefault();
     
+                                    basketTotal.style.display = 'block';
+                                    payButton.style.display = 'block';
+                                    emptyBasket.style.display = 'none';
                                         
-                                    if (basketsSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (basketProducts.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este in basket');
                                     } else {
                                         console.log('adaugat in basket');
     
-                                        basketsSection.innerHTML += `
+                                        basketProducts.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `</h3>
@@ -810,6 +867,8 @@ window.addEventListener('load', () => {
     
                                             
                                     }
+
+                                    payment();
                                                                                
                                 });
                             }
@@ -878,13 +937,15 @@ window.addEventListener('load', () => {
                         
                                 favoriteAuthorAtoZ.addEventListener('click', (event) => {
                                     event.preventDefault();
+
+                                    emptyFavorites.style.display = 'none';
                                               
-                                    if (favoritesSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (favoritesBooks.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este din authorAtoZ');
                                     } else {
                                         console.log('adaugat din authorAtoZ');
                         
-                                        favoritesSection.innerHTML += `
+                                        favoritesBooks.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `<h3>
@@ -917,13 +978,16 @@ window.addEventListener('load', () => {
                                 basketAuthorAtozs.addEventListener('click', (event) => {
                                     event.preventDefault();
     
+                                    basketTotal.style.display = 'block';
+                                    payButton.style.display = 'block';
+                                    emptyBasket.style.display = 'none';
                                         
-                                    if (basketsSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (basketProducts.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este in basket');
                                     } else {
                                         console.log('adaugat in basket');
     
-                                        basketsSection.innerHTML += `
+                                        basketProducts.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `</h3>
@@ -1017,6 +1081,8 @@ window.addEventListener('load', () => {
     
                                             
                                     }
+
+                                    payment();
                                                                                
                                 });
                             }
@@ -1085,13 +1151,15 @@ window.addEventListener('load', () => {
                         
                                 favoriteAuthorZtoA.addEventListener('click', (event) => {
                                     event.preventDefault();
+
+                                    emptyFavorites.style.display = 'none';
                                               
-                                    if (favoritesSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (favoritesBooks.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este din authorZtoA');
                                     } else {
                                         console.log('adaugat din authorZtoA');
                         
-                                        favoritesSection.innerHTML += `
+                                        favoritesBooks.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `<h3>
@@ -1124,13 +1192,16 @@ window.addEventListener('load', () => {
                                 basketAuthorZtoas.addEventListener('click', (event) => {
                                     event.preventDefault();
     
+                                    basketTotal.style.display = 'block';
+                                    payButton.style.display = 'block';
+                                    emptyBasket.style.display = 'none';
                                         
-                                    if (basketsSection.innerHTML.indexOf(books[i].title) != -1) {
+                                    if (basketProducts.innerHTML.indexOf(books[i].title) != -1) {
                                         console.log('este in basket');
                                     } else {
                                         console.log('adaugat in basket');
     
-                                        basketsSection.innerHTML += `
+                                        basketProducts.innerHTML += `
                                             <div>
                                                 <ion-icon name="close-outline" id="delete"></ion-icon>
                                                 <h3>` + books[i].title + `</h3>
@@ -1224,6 +1295,8 @@ window.addEventListener('load', () => {
     
                                             
                                     }
+
+                                    payment();
                                                                                
                                 });
                             }

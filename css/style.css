@@ -180,6 +180,26 @@ ion-icon:hover {
     cursor: pointer;
 }
 
+/* FAVORITES SECTION */
+
+#favorites-total {
+    display: none;
+}
+
+/* BASKET SECTION */
+
+#basket-total {
+    display: none;
+}
+
+#pay-button {
+    display: none;
+}
+
+#order {
+    display: none;
+}
+
 /* RESPONSIVE */
 
 @media only screen and (max-width: 600px) {
