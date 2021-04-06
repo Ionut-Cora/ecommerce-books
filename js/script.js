@@ -134,6 +134,8 @@ window.addEventListener('load', () => {
                 <option value="option-name-ztoa">Name, Z to A</option>
                 <option value="option-author-atoz">Author, A to Z</option>
                 <option value="option-author-ztoa">Author, Z to A</option>
+                <option value="option-lowest-price">Lowest Price</option>
+                <option value="option-highest-price">Highest Price</option>
             </select>
         </div>
 
@@ -142,7 +144,9 @@ window.addEventListener('load', () => {
             <div class="name-atoz" id="div-name-atoz"></div>
             <div class="name-ztoa" id="div-name-ztoa"></div>
             <div class="author-atoz" id="div-author-atoz"></div>
-            <div class="author-ztoa" id="div-author-ztoa"></div>       
+            <div class="author-ztoa" id="div-author-ztoa"></div>
+            <div class="lowest-price" id="div-lowest-price"></div>
+            <div class="highest-price" id="div-highest-price"></div>      
         </section>
 
         <section class="container favorites-section">
@@ -173,11 +177,15 @@ window.addEventListener('load', () => {
     const divNameZtoA = document.getElementById('div-name-ztoa');
     const divAuthorAtoZ = document.getElementById('div-author-atoz');
     const divAuthorZtoA = document.getElementById('div-author-ztoa');
+    const divLowestPrice = document.getElementById('div-lowest-price');
+    const divHighestPrice = document.getElementById('div-highest-price');
     let product = document.getElementsByClassName('product');
     let nameAtoZ = document.querySelector('.name-atoz');
     let nameZtoA = document.querySelector('.name-ztoa');
     let authorAtoZ = document.querySelector('.author-atoz');
     let authorZtoA = document.querySelector('.author-ztoa');
+    let lowestPrice = document.querySelector('.lowest-price');
+    let highestPrice = document.querySelector('.highest-price');
     const nav = document.querySelector('nav');
 
     
@@ -242,6 +250,8 @@ window.addEventListener('load', () => {
         nameZtoA.style.display = 'none';
         authorAtoZ.style.display = 'none';
         authorZtoA.style.display = 'none';
+        lowestPrice.style.display = 'none';
+        highestPrice.style.display = 'none';
     });
 
     const emptyFavorites = document.getElementById('empty-favorites');
@@ -447,8 +457,8 @@ window.addEventListener('load', () => {
         nameZtoA.style.display = 'none';
         authorAtoZ.style.display = 'none';
         authorZtoA.style.display = 'none';
-
-        
+        lowestPrice.style.display = 'none';
+        highestPrice.style.display = 'none';
     });
 
     // FILTER OPTIONS
@@ -1095,6 +1105,422 @@ window.addEventListener('load', () => {
                         products.style.display = 'none';
                     }
     
+                    nameAtoZ.style.display = 'none';
+                    nameZtoA.style.display = 'none';
+                    authorZtoA.style.display = 'none';
+                }
+            }
+        } else if (event.target.value === 'option-lowest-price') {
+            for (let i = 0; i < books.length; i++) {
+                if (divLowestPrice.innerHTML.indexOf(books[i].title) != -1) {
+                    lowestPrice.style.display = 'flex';
+    
+                    for (let i =0; i < product.length; i++) {
+                        let products = product[i];
+                        products.style.display = 'none';
+                    }
+    
+                    highestPrice.style.display = 'none';
+                    nameAtoZ.style.display = 'none';
+                    nameZtoA.style.display = 'none';
+                    authorAtoZ.style.display = 'none';
+                    authorZtoA.style.display = 'none';
+                } else {
+                    books.sort((a, b) => {
+                        return a.price - b.price;
+                    });
+    
+                    for (let i = 0; i < books.length; i++) {
+                        book = books[i];
+                        divLowestPrice.innerHTML += `
+                            <div class="lowest">
+                                <div class="favorite-div">
+                                    <ion-icon name="heart" class="favorites-lowest"></ion-icon>              
+                                </div>
+                                <img src="` + book.image + `">
+                                <h3 class="title">` + book.title + `<h3>
+                                <h5 class="author">` + book.author + `</h5>
+                                <p class="description">` + book.description + `</p>
+                                <p>` + book.currency + `</p>
+                                <p id="product-price">` + book.price + `</p>
+                                <button class="basket-lowest">Add to basket</button>      
+                            </div>
+                        `;
+
+                        let favoritesLowest = document.querySelectorAll('.favorites-lowest');
+
+                            for (let i = 0; i < favoritesLowest.length; i++) {
+                                let favoriteLowest = favoritesLowest[i];
+                        
+                                favoriteLowest.addEventListener('click', (event) => {
+                                    event.preventDefault();
+
+                                    emptyFavorites.style.display = 'none';
+                                              
+                                    if (favoritesBooks.innerHTML.indexOf(books[i].title) != -1) {
+                                        console.log('este din lowest');
+                                    } else {
+                                        console.log('adaugat din lowest');
+                        
+                                        favoritesBooks.innerHTML += `
+                                            <div>
+                                                <ion-icon name="close-outline" id="delete"></ion-icon>
+                                                <h3>` + books[i].title + `<h3>
+                                            </div>
+                                        `;
+                        
+                                        let deleteButtons = document.querySelectorAll('#delete');
+                        
+                                        for (let i = 0; i < deleteButtons.length; i++) {
+                                            let deleteButton = deleteButtons[i];
+                        
+                                            deleteButton.addEventListener('click', (event) => {
+                        
+                                                let element = event.target;
+                                                let elementListItem = element.parentNode;
+                                                elementFullList = elementListItem.parentNode;
+                                                elementFullList.removeChild(elementListItem);
+                                            });
+                                        }
+                                    }
+                        
+                                });
+                            }
+
+                            let basketLowest = document.querySelectorAll('.basket-lowest');
+    
+                            for (let i = 0; i < basketLowest.length; i++) {
+                                let basketLowests = basketLowest[i];
+    
+                                basketLowests.addEventListener('click', (event) => {
+                                    event.preventDefault();
+    
+                                    basketTotal.style.display = 'block';
+                                    payButton.style.display = 'block';
+                                    emptyBasket.style.display = 'none';
+                                        
+                                    if (basketProducts.innerHTML.indexOf(books[i].title) != -1) {
+                                        console.log('este in basket');
+                                    } else {
+                                        console.log('adaugat in basket');
+    
+                                        basketProducts.innerHTML += `
+                                            <div>
+                                                <ion-icon name="close-outline" id="delete"></ion-icon>
+                                                <h3>` + books[i].title + `</h3>
+                                                <div>
+                                                    <p>` + books[i].currency + `</p>
+                                                    <p id="product-price">` + books[i].price + `</p>
+                                                    <p>Quantity</p>
+                                                    <button id="increase-basket">+</button>
+                                                    <p id="pieces-basket">1</p>
+                                                    <button id="decrease-basket">-</button>   
+                                                </div>
+                                            </div>
+                                        `;
+    
+                                        let totalResult = document.querySelector('#total');
+                                        console.log(totalResult);
+                                        totalResult.innerHTML = Number(totalResult.innerHTML) + Number(books[i].price);
+    
+                                        let increaseBaskets = document.querySelectorAll('#increase-basket');
+                                        let decreaseBaskets = document.querySelectorAll('#decrease-basket');
+    
+                                        for (let i = 0; i < increaseBaskets.length; i++) {
+                                            let increaseBasket = increaseBaskets[i];
+
+                                            increaseBasket.addEventListener('click', (event) => {
+                                                let element = event.target;
+                                                let elementListItem = element.parentNode;
+                                                console.log(elementListItem);
+    
+                                                let pieceBasket = elementListItem.querySelector('#pieces-basket');
+                                                let piecesBasket = pieceBasket.innerHTML;
+                                                piecesBasket++;
+    
+                                                console.log(pieceBasket);
+                                                console.log(piecesBasket);
+    
+                                                pieceBasket.innerHTML = piecesBasket;
+    
+                                                let productPrice =  elementListItem.querySelector('#product-price');
+    
+                                                totalResult.innerHTML = Number(totalResult.innerHTML) + Number(productPrice.innerHTML);
+                                            });
+                                        }
+    
+                                        for (let i = 0; i < decreaseBaskets.length; i++) {
+                                            let decreaseBasket = decreaseBaskets[i];
+    
+                                            decreaseBasket.addEventListener('click', (event) => {
+                                                let element = event.target;
+                                                let elementListItem = element.parentNode;
+                                                let pieceBasket = elementListItem.querySelector('#pieces-basket');
+                                                let piecesBasket = pieceBasket.innerHTML;
+                                                piecesBasket--;
+    
+                                                if (piecesBasket >= 1) {
+                                                    pieceBasket.innerHTML = piecesBasket;
+    
+                                                    let productPrice =  elementListItem.querySelector('#product-price');
+    
+                                                    totalResult.innerHTML = Number(totalResult.innerHTML) - Number(productPrice.innerHTML);
+                                                } else {
+                                                    pieceBasket.innerHTML = '1';
+                                                }
+                                            });
+                                        }
+    
+                                        let deleteButtons = document.querySelectorAll('#delete');
+                                
+                                            for (let i = 0; i < deleteButtons.length; i++) {
+                                                let deleteButton = deleteButtons[i];
+                                
+                                                deleteButton.addEventListener('click', (event) => {
+                                
+                                                    let element = event.target;
+                                                    let elementListItem = element.parentNode;
+                                                    console.log(elementListItem);
+                                                    elementFullList = elementListItem.parentNode;
+                                                    elementFullList.removeChild(elementListItem);
+    
+                                                    let productPrice = elementListItem.querySelector('#product-price');
+    
+                                                    console.log(totalResult);
+                                                    console.log(productPrice);
+    
+                                                    let pieceBasket = elementListItem.querySelector('#pieces-basket');
+    
+                                                    totalResult.innerHTML = Number(totalResult.innerHTML) - (Number(productPrice.innerHTML) * Number(pieceBasket.innerHTML));
+    
+                                                });
+                                            }
+    
+                                            
+                                    }
+
+                                    payment();
+                                                                               
+                                });
+                            }
+                    }
+    
+                    lowestPrice.style.display = 'flex';
+    
+                    for (let i =0; i < product.length; i++) {
+                        let products = product[i];
+                        products.style.display = 'none';
+                    }
+    
+                    highestPrice.style.display = 'none';
+                    nameAtoZ.style.display = 'none';
+                    nameZtoA.style.display = 'none';
+                    authorZtoA.style.display = 'none';
+                }
+            }
+        } else if (event.target.value === 'option-highest-price') {
+            for (let i = 0; i < books.length; i++) {
+                if (divHighestPrice.innerHTML.indexOf(books[i].title) != -1) {
+                    highestPrice.style.display = 'flex';
+    
+                    for (let i =0; i < product.length; i++) {
+                        let products = product[i];
+                        products.style.display = 'none';
+                    }
+    
+                    lowestPrice.style.display = 'none';
+                    nameAtoZ.style.display = 'none';
+                    nameZtoA.style.display = 'none';
+                    authorAtoZ.style.display = 'none';
+                    authorZtoA.style.display = 'none';
+                } else {
+                    books.sort((a, b) => {
+                        return b.price - a.price;
+                    });
+    
+                    for (let i = 0; i < books.length; i++) {
+                        book = books[i];
+                        divHighestPrice.innerHTML += `
+                            <div class="highest">
+                                <div class="favorite-div">
+                                    <ion-icon name="heart" class="favorites-highest"></ion-icon>              
+                                </div>
+                                <img src="` + book.image + `">
+                                <h3 class="title">` + book.title + `<h3>
+                                <h5 class="author">` + book.author + `</h5>
+                                <p class="description">` + book.description + `</p>
+                                <p>` + book.currency + `</p>
+                                <p id="product-price">` + book.price + `</p>
+                                <button class="basket-highest">Add to basket</button>      
+                            </div>
+                        `;
+
+                        let favoritesHighest = document.querySelectorAll('.favorites-highest');
+
+                            for (let i = 0; i < favoritesHighest.length; i++) {
+                                let favoriteHighest = favoritesHighest[i];
+                        
+                                favoriteHighest.addEventListener('click', (event) => {
+                                    event.preventDefault();
+
+                                    emptyFavorites.style.display = 'none';
+                                              
+                                    if (favoritesBooks.innerHTML.indexOf(books[i].title) != -1) {
+                                        console.log('este din highest');
+                                    } else {
+                                        console.log('adaugat din highest');
+                        
+                                        favoritesBooks.innerHTML += `
+                                            <div>
+                                                <ion-icon name="close-outline" id="delete"></ion-icon>
+                                                <h3>` + books[i].title + `<h3>
+                                            </div>
+                                        `;
+                        
+                                        let deleteButtons = document.querySelectorAll('#delete');
+                        
+                                        for (let i = 0; i < deleteButtons.length; i++) {
+                                            let deleteButton = deleteButtons[i];
+                        
+                                            deleteButton.addEventListener('click', (event) => {
+                        
+                                                let element = event.target;
+                                                let elementListItem = element.parentNode;
+                                                elementFullList = elementListItem.parentNode;
+                                                elementFullList.removeChild(elementListItem);
+                                            });
+                                        }
+                                    }
+                        
+                                });
+                            }
+
+                            let basketHighest = document.querySelectorAll('.basket-highest');
+    
+                            for (let i = 0; i < basketHighest.length; i++) {
+                                let basketHighests = basketHighest[i];
+    
+                                basketHighests.addEventListener('click', (event) => {
+                                    event.preventDefault();
+    
+                                    basketTotal.style.display = 'block';
+                                    payButton.style.display = 'block';
+                                    emptyBasket.style.display = 'none';
+                                        
+                                    if (basketProducts.innerHTML.indexOf(books[i].title) != -1) {
+                                        console.log('este in basket');
+                                    } else {
+                                        console.log('adaugat in basket');
+    
+                                        basketProducts.innerHTML += `
+                                            <div>
+                                                <ion-icon name="close-outline" id="delete"></ion-icon>
+                                                <h3>` + books[i].title + `</h3>
+                                                <div>
+                                                    <p>` + books[i].currency + `</p>
+                                                    <p id="product-price">` + books[i].price + `</p>
+                                                    <p>Quantity</p>
+                                                    <button id="increase-basket">+</button>
+                                                    <p id="pieces-basket">1</p>
+                                                    <button id="decrease-basket">-</button>   
+                                                </div>
+                                            </div>
+                                        `;
+    
+                                        let totalResult = document.querySelector('#total');
+                                        console.log(totalResult);
+                                        totalResult.innerHTML = Number(totalResult.innerHTML) + Number(books[i].price);
+    
+                                        let increaseBaskets = document.querySelectorAll('#increase-basket');
+                                        let decreaseBaskets = document.querySelectorAll('#decrease-basket');
+    
+                                        for (let i = 0; i < increaseBaskets.length; i++) {
+                                            let increaseBasket = increaseBaskets[i];
+
+                                            increaseBasket.addEventListener('click', (event) => {
+                                                let element = event.target;
+                                                let elementListItem = element.parentNode;
+                                                console.log(elementListItem);
+    
+                                                let pieceBasket = elementListItem.querySelector('#pieces-basket');
+                                                let piecesBasket = pieceBasket.innerHTML;
+                                                piecesBasket++;
+    
+                                                console.log(pieceBasket);
+                                                console.log(piecesBasket);
+    
+                                                pieceBasket.innerHTML = piecesBasket;
+    
+                                                let productPrice =  elementListItem.querySelector('#product-price');
+    
+                                                totalResult.innerHTML = Number(totalResult.innerHTML) + Number(productPrice.innerHTML);
+                                            });
+                                        }
+    
+                                        for (let i = 0; i < decreaseBaskets.length; i++) {
+                                            let decreaseBasket = decreaseBaskets[i];
+    
+                                            decreaseBasket.addEventListener('click', (event) => {
+                                                let element = event.target;
+                                                let elementListItem = element.parentNode;
+                                                let pieceBasket = elementListItem.querySelector('#pieces-basket');
+                                                let piecesBasket = pieceBasket.innerHTML;
+                                                piecesBasket--;
+    
+                                                if (piecesBasket >= 1) {
+                                                    pieceBasket.innerHTML = piecesBasket;
+    
+                                                    let productPrice =  elementListItem.querySelector('#product-price');
+    
+                                                    totalResult.innerHTML = Number(totalResult.innerHTML) - Number(productPrice.innerHTML);
+                                                } else {
+                                                    pieceBasket.innerHTML = '1';
+                                                }
+                                            });
+                                        }
+    
+                                        let deleteButtons = document.querySelectorAll('#delete');
+                                
+                                            for (let i = 0; i < deleteButtons.length; i++) {
+                                                let deleteButton = deleteButtons[i];
+                                
+                                                deleteButton.addEventListener('click', (event) => {
+                                
+                                                    let element = event.target;
+                                                    let elementListItem = element.parentNode;
+                                                    console.log(elementListItem);
+                                                    elementFullList = elementListItem.parentNode;
+                                                    elementFullList.removeChild(elementListItem);
+    
+                                                    let productPrice = elementListItem.querySelector('#product-price');
+    
+                                                    console.log(totalResult);
+                                                    console.log(productPrice);
+    
+                                                    let pieceBasket = elementListItem.querySelector('#pieces-basket');
+    
+                                                    totalResult.innerHTML = Number(totalResult.innerHTML) - (Number(productPrice.innerHTML) * Number(pieceBasket.innerHTML));
+    
+                                                });
+                                            }
+    
+                                            
+                                    }
+
+                                    payment();
+                                                                               
+                                });
+                            }
+                    }
+    
+                    highestPrice.style.display = 'flex';
+    
+                    for (let i =0; i < product.length; i++) {
+                        let products = product[i];
+                        products.style.display = 'none';
+                    }
+    
+                    lowestPrice.style.display = 'none';
                     nameAtoZ.style.display = 'none';
                     nameZtoA.style.display = 'none';
                     authorZtoA.style.display = 'none';
