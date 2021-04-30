@@ -12,7 +12,7 @@ const books = [
             Against the background on which, together with Anna, special characters evolve by their nature, Tolstoy divulges the hypocrisy of the high society, 
             paints the decomposition of the patriarchal way of life and the degradation of the family institution.
         `,
-        image: 'https://i.imgur.com/wpggfQv.jpg',
+        image: 'https://i.imgur.com/Ci1xy7T.jpg',
         price: 4.00,
         currency: '£'
     },
@@ -26,7 +26,7 @@ const books = [
             psychologist the causes of crime, his character's dilemmas, his inner oscillations between good and evil, rational and irrational, the psychology of the killer and the investigator, 
             finally advancing the possibility of salvation through love, humility and self-sacrifice.
         `,
-        image: 'https://i.imgur.com/CJkKk7X.jpg',
+        image: 'https://i.imgur.com/JlasLtj.jpg',
         price: 5.50,
         currency: '£'
     },
@@ -41,7 +41,7 @@ const books = [
             arms are the wings, which, turned by the wind, move the stones of the mill. It can be seen from there, answered Don Quixote, that you are not very well read when it comes to 
             chivalric adventures; they are huge, and if you are afraid of them, erase them from here and pray, as long as I am included with them in the fierce and right-wing struggle.
         `,
-        image: 'https://i.imgur.com/KKbAQiX.jpg',
+        image: 'https://i.imgur.com/iGPICzD.jpg',
         price: 8.00,
         currency: '£'
     },
@@ -54,7 +54,7 @@ const books = [
             the Karamazov brothers each have well-founded reasons, albeit of different natures, to kill their father, the landowner Fyodor Pavlovich Karamazov, who leads an amoral and debauched life. 
             His unexpected death casts suspicion on all four brothers and gives rise to numerous theories, Dostoevsky exploiting with remarkable ability the police vein of the story.
         `,
-        image: 'https://i.imgur.com/N9wnj8D.jpg',
+        image: 'https://i.imgur.com/iSfuFfW.jpg',
         price: 3.50,
         currency: '£'
     },
@@ -66,7 +66,7 @@ const books = [
             Against the background of a prosperous but chaotic America, Gatz, driven by the mirage of love for Daisy Buchanan, changes his life, becoming a student at Oxford gangster, alcoholic trafficker and then millionaire. 
             But his love for Daisy does not come true; remains the Don Quixote story of the Great Gatsby, unfolding with an illusory, endless American dream.
         `,
-        image: 'https://i.imgur.com/GOMxcp3.jpg',
+        image: 'https://i.imgur.com/ml0edRw.jpg',
         price: 4.00,
         currency: '£'
     },
@@ -78,7 +78,7 @@ const books = [
             is frightened by their greed and is indignant at the lack of humanity. The Idiot is the novel of a perpetual surprise, of the indecision and of the convulsive reaction of the human 
             being towards the deeds of a violent society which, in the absence of reason, is guided by instincts and passions.
         `,
-        image: 'https://i.imgur.com/UGgtZr1.jpg',
+        image: 'https://i.imgur.com/ShZw8wY.jpg',
         price: 6.75,
         currency: '£'
     },
@@ -90,7 +90,7 @@ const books = [
             Every deed, every past year leaves another mark on the painted face, without this detail being known by the others; only its creator, Basil Hallward, knows, and for that he is killed by Dorian Gray. 
             The latter will also reach the fatal confrontation with his painted reflection and will end up, aged without news, the mysterious victim of the image in the painting he cherished so much.
         `,
-        image: 'https://i.imgur.com/TLhPmf4.jpg',
+        image: 'https://i.imgur.com/gXPlry9.jpg',
         price: 6.50,
         currency: '£'
     },
@@ -102,7 +102,7 @@ const books = [
             He was indeed in love with the tsar, with the glory of Russian weapons, and with his hope in the victory to come. And he was not the only one to experience this feeling in 
             the memorable days before the battle of Austerlitz; In the Russian army, nine out of ten people were in love at the time, though perhaps less madly than Rostov, with their tsar and the glory of Russian weapons.
         `,
-        image: 'https://i.imgur.com/2E3vFOx.jpg',
+        image: 'https://i.imgur.com/wkKBvUW.jpg',
         price: 12.50,
         currency: '£'
     }
@@ -125,7 +125,11 @@ window.addEventListener('load', () => {
             </ul>
         </nav>
 
-        <section id="header"></section>
+        <section class="header">
+            <div class="container"> 
+                <h1>Favorite books</h1>         
+            </div>
+        </section>
 
         <div class="container" id="filters">
             <select id="my-select">
@@ -170,6 +174,9 @@ window.addEventListener('load', () => {
                 <button id="order-button">ok</button>
             </div>
         </section>
+        <footer class="footer">
+            <p class="text-center p-3 mb-0">&copy; made by Ionut Cora, 2021</p> 
+        </footer>
     `;
 
     const mySelects = document.getElementById('my-select');
@@ -219,7 +226,7 @@ window.addEventListener('load', () => {
     const home = document.getElementById('home');
     const favoriteButton = document.getElementById('favorite-button');
     const basketButton = document.getElementById('basket-button');
-    const header = document.getElementById('header');
+    const header = document.querySelector('.header');
     const filters = document.getElementById('filters');
     let favoritesSection = document.querySelector('.favorites-section');
     let basketsSection = document.querySelector('.basket-section');
@@ -243,7 +250,8 @@ window.addEventListener('load', () => {
         sectionProducts.style.display = 'none';
         favoritesSection.classList.add('seen');
         nav.classList.add('seen');
-        header.classList.add('unseen');
+        // header.classList.add('unseen');
+        header.style.display = 'none';
         sectionProducts.classList.add('unseen');
         filters.style.display = 'none';
         nameAtoZ.style.display = 'none';
@@ -450,7 +458,8 @@ window.addEventListener('load', () => {
         basketsSection.classList.add('seen');
         nav.classList.add('seen');
         favoritesSection.classList.add('unseen');
-        header.classList.add('unseen');
+        // header.classList.add('unseen');
+        header.style.display = 'none';
         sectionProducts.classList.add('unseen');
         filters.style.display = 'none';
         nameAtoZ.style.display = 'none';

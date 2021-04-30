@@ -9,7 +9,16 @@
     margin: auto;
 }
 
+body {
+    font-family: 'Montserrat', sans-serif;
+}
 
+/* ROOT */
+
+#root {
+    position: relative;
+    min-height: 100vh;
+}
 
 /* NAV */
 
@@ -80,13 +89,25 @@ li {
 
 /* SECTION - HEADER */
 
-#header {
-    display: none;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(https://i.imgur.com/t0tEnNg.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://i.imgur.com/t0tEnNg.jpg);
+.header {
+    /* display: none; */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(https://i.imgur.com/Npfcyvy.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://i.imgur.com/Npfcyvy.jpg);
     background-size: cover;
     background-position: center;
     height: 100vh;
+}
+
+.header div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.header h1 {
+    font-size: 7rem;
+    color: #fff;
 }
 
 /* SECTION PRODUCTS-PAGE */
@@ -194,6 +215,10 @@ ion-icon:hover {
 
 /* BASKET SECTION */
 
+#basket-section {
+    padding-bottom: 2.5rem;
+}
+
 #basket-total {
     display: none;
 }
@@ -204,6 +229,18 @@ ion-icon:hover {
 
 #order {
     display: none;
+}
+
+/* FOOTER */
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
 }
 
 /* RESPONSIVE */
